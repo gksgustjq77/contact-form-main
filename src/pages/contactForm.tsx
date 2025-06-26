@@ -3,18 +3,26 @@ import React, { useState } from "react";
 import { FormField } from "../components/FormField";
 import { fields } from "../type/formTypes";
 
+const submitValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  query: "",
+  message: "",
+};
+type SubmitValues = typeof submitValues;
+
 export const ContactForm: React.FC = () => {
-  const [form, setForm] = useState<Record<string, any>>(
-    Object.fromEntries(fields.map((f) => [f.name, ""]))
-  );
+  const [submitValue, setSubmitValue] = useState<SubmitValues>(submitValues);
+  const [consent, setConsent] = useState<boolean>(false);
 
   const handleChange = (name: string, value: any) => {
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setSubmitValue((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    console.log("submitValue ", submitValue);
     e.preventDefault();
-    console.log("Submitted:", form);
   };
 
   return (
@@ -27,22 +35,31 @@ export const ContactForm: React.FC = () => {
           <FormField
             key={field.name}
             field={field}
-            value={form[field.name]}
+            value={submitValue}
             onChange={handleChange}
           />
         ))}
 
-        <div className="px-2 mb-4 flex ">
+        <div className="px-2 mb-4 flex flex-col  ">
           <label className="inline-flex items-center cursor-pointer gap-[20px]">
             <input
               type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
               className="appearance-none w-4 h-4 border-gray-400 border-2 bg-center checked:bg-[url('/images/icon-checkbox-check.svg')]"
             />
-            <span className="text-black">
+            <span className="text-black text-left">
               I consent to being contacted by the team
             </span>
           </label>
+
+          {!consent && (
+            <div className="text-black flex mt-[7px] text-sm text-[hsl(0,66%,54%)] font-light text-left">
+              To submit this form, please consent to being contacted
+            </div>
+          )}
         </div>
+
         <button
           type="submit"
           className="bg-[hsl(169,82%,27%)] w-full p-[10px] text-white"
