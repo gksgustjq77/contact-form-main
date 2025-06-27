@@ -54,7 +54,7 @@ export const ContactForm: React.FC = () => {
           </label>
 
           {!consent && (
-            <div className="text-black flex mt-[7px] text-sm text-[hsl(0,66%,54%)] font-light text-left">
+            <div className="flex mt-[7px] text-sm text-[hsl(0,66%,54%)] font-light text-left">
               To submit this form, please consent to being contacted
             </div>
           )}
