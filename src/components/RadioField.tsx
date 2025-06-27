@@ -31,8 +31,7 @@ export const RadioField: React.FC<Props> = ({ field, value, onChange }) => {
                   type="radio"
                   name={field.name}
                   value={value[field.id as string]}
-                  // checked={value[field.name] === opt.value}
-                  onChange={(e) => {
+                  onChange={() => {
                     onChange(field.name, opt.value);
                   }}
                   className="peer appearance-none w-5 h-5 border-2 border-[hsl(200,26%,54%)] rounded-full checked:border-[hsl(169,82%,27%)]"
